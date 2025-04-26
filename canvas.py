@@ -4,8 +4,13 @@ Canvas API Course Listing Example
 """
 from canvasapi import Canvas
 
+from dotenv import load_dotenv
+import os
+
+load_dotenv() # chatgpt gave me this ok
+
 API_URL = "https://canvas.du.edu"
-API_KEY = "YOUR_API_KEY"
+API_KEY = os.getenv("API_KEY")
 
 
 def main():
