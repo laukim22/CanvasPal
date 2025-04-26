@@ -13,7 +13,7 @@ API_URL = "https://canvas.du.edu"
 API_KEY = os.getenv("API_KEY")
 
 
-def main():
+def get_course_IDs():
     canvas = Canvas(API_URL, API_KEY)
 
     try:
@@ -21,19 +21,14 @@ def main():
         user = canvas.get_current_user()
 
         # Retrieve all active courses for the user
-        courses = user.get_courses(enrollment_state=['active'])
+        courses = user.get_favorite_courses()
 
-        print(f"Active courses for {user.name}:")
-        for i, course in enumerate(courses, 1):
-            print(f"{i}. {course.name} (ID: {course.id})")
+        for course in courses:
+            print(f"{course.name} (ID: {course.id})")
 
-            # You can access additional course properties
-            if hasattr(course, 'course_code'):
-                print(f"   Course Code: {course.course_code}")
 
     except Exception as e:
         print(f"Error: {e}")
 
+get_course_IDs()
 
-if __name__ == "__main__":
-    main()
