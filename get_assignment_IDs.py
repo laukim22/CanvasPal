@@ -13,7 +13,7 @@ API_URL = "https://canvas.du.edu"
 API_KEY = os.getenv("API_KEY")
 
 
-def get_course_IDs():
+def get_assignment_IDs(course_ID: str):
     canvas = Canvas(API_URL, API_KEY)
 
     try:
@@ -21,13 +21,11 @@ def get_course_IDs():
         user = canvas.get_current_user()
 
         # Retrieve all active courses for the user
-        courses = user.get_favorite_courses()
+        course = canvas.get_course(course_ID)
+        assignments = course.get_assignments()
 
-        for course in courses:
-            print(f"{course.name} (ID: {course.id})")
-
+        for assignment in assignments:
+            print(f"{assignment.name} (ID: {assignment.id})")
 
     except Exception as e:
         print(f"Error: {e}")
-
-
