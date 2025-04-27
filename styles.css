@@ -1,35 +1,130 @@
-/* styles.css */
-.chat-container {
+/* Top bar (shared) */
+.top-bar {
+    width: 100%;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Logo (shared) */
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Center page layout */
+  .home-page, .chat-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem;
   }
+
+  .chat-page {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 80px); /* Full screen minus top bar height */
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  /* Home input */
+  .home-input {
+    padding: 1rem;
+    width: 400px;
+    font-size: 1.25rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  /* Prompt suggestions */
+  .prompt-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    max-width: 800px;
+  }
+  
+  .prompt {
+    background: #e0e0e0;
+    padding: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    flex: 1 1 30%;
+    text-align: center;
+    transition: background-color 0.3s;
+  }
+  
+  .prompt:hover {
+    background-color: #d0d0d0;
+  }
+  
+  /* Chat specific */
+  .chat-container {
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    height: 60vh;
+    overflow: hidden;
+  }
+  
   .messages {
-    flex: 1;
+    flex: 1; /* <-- This makes it grow to fill available space */
     overflow-y: auto;
     padding: 1rem;
-  }
+    width: 100%;
+    background: #fff;
+  }  
+  
   .message {
     margin-bottom: 0.5rem;
   }
+  
   .message.user {
     text-align: right;
     background-color: #d1e7dd;
+    padding: 0.5rem;
+    border-radius: 8px;
   }
+  
   .message.bot {
     text-align: left;
     background-color: #f8d7da;
+    padding: 0.5rem;
+    border-radius: 8px;
   }
+  
   .input-area {
     display: flex;
+    width: 100%;
     padding: 1rem;
+    border-top: 1px solid #ccc;
+    background: #f9f9f9;
+    position: sticky;
+    bottom: 0;
   }
-  input {
+  
+  .input-area input {
     flex: 1;
     padding: 0.5rem;
   }
-  button {
+  
+  .input-area button {
     margin-left: 0.5rem;
     padding: 0.5rem 1rem;
   }
   
+  .hidden {
+    display: none !important;
+  }

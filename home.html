@@ -1,0 +1,123 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Home</title>
+    <link rel="stylesheet" href="styles.css">
+</html>
+<body>
+    <div class="top-bar">
+      <div class="logo clickable-logo">🤖 My Chatbot</div>
+    </div>
+  
+    <div class="home-page">
+        <form class="home-search-area">
+            <input type="text" class="home-input" placeholder="Ask me anything..." />
+            <button type="submit" class="home-search-button">Search</button>
+          </form>
+          
+        <div class="prompt-suggestions">
+        <div class="prompt">Suggest some study techniques</div>
+        <div class="prompt">Summarize a book for me</div>
+        <div class="prompt">Explain Python like I'm five</div>
+      </div>
+    </div>
+  
+    <div class="chat-page hidden">
+      <div class="messages"></div>
+      <form class="input-area">
+        <input type="text" class="chat-input" placeholder="Type your message..." />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  
+  <script>
+    const homePage = document.querySelector('.home-page');
+    const chatPage = document.querySelector('.chat-page');
+    const homeForm = document.querySelector('.home-search-area');
+    const homeInput = document.querySelector('.home-input');
+    const prompts = document.querySelectorAll('.prompt');
+    const chatInput = document.querySelector('.chat-input');
+    const messagesContainer = document.querySelector('.messages');
+
+  
+    // Function to start chat
+    function startChat(initialMessage = '') {
+      homePage.classList.add('hidden');
+      chatPage.classList.remove('hidden');
+  
+      if (initialMessage) {
+        addMessage('user', initialMessage);
+        simulateBotReply(initialMessage);
+      }
+    }
+  
+    function addMessage(role, text) {
+      const message = document.createElement('div');
+      message.className = `message ${role}`;
+      message.textContent = text;
+      messagesContainer.appendChild(message);
+    }
+  
+    function simulateBotReply(userText) {
+      const botMessage = document.createElement('div');
+      botMessage.className = 'message bot';
+      botMessage.textContent = "Thinking...";
+      messagesContainer.appendChild(botMessage);
+  
+      setTimeout(() => {
+        botMessage.textContent = "Here's an answer to: " + userText;
+      }, 1000);
+    }
+
+    // Handle typing into home input
+    homeInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const inputText = homeInput.value.trim();
+        if (inputText) {
+          startChat(inputText);
+        }
+      }
+    });
+
+        homeForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const inputText = homeInput.value.trim();
+        if (inputText) {
+            startChat(inputText);
+        }
+        });
+
+  
+    // Handle clicking a suggestion
+    prompts.forEach(prompt => {
+      prompt.addEventListener('click', function() {
+        startChat(this.textContent);
+      });
+    });
+  
+    // Handle sending in chat input
+    const chatForm = document.querySelector('.input-area');
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const inputText = chatInput.value.trim();
+      if (inputText) {
+        addMessage('user', inputText);
+        simulateBotReply(inputText);
+        chatInput.value = '';
+      }
+    });
+  
+    // Handle logo click to go back home
+    const logo = document.querySelector('.clickable-logo');
+    logo.addEventListener('click', function() {
+      homePage.classList.remove('hidden');
+      chatPage.classList.add('hidden');
+      messagesContainer.innerHTML = ''; // Reset chat
+      homeInput.value = '';
+    });
+
+  </script>
+  </body>
